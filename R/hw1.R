@@ -10,6 +10,7 @@
 #' B<- matrix(c(1,7,4,8), ncol=2, nrow=2)
 #' x<-matrix(c(1,5), ncol=2, nrow=1)
 #' matrices_vector_mult (A,B,x,matrices = T), matrices_vector_mult (A,B,x,matrices = F)
+#' @export
 
 matrice_vector_mult <- function(A,B,x, matrices=T){
   if (matrices){
@@ -18,8 +19,9 @@ matrice_vector_mult <- function(A,B,x, matrices=T){
     }
   else {
     c<-B %*% x
-    return (a %*% c)
+    return (A %*% c)
   }
 
 }
+
 

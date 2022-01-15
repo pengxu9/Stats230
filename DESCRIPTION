@@ -1,0 +1,10 @@
+Package: stats230
+Title: Matrices and vector multiplication
+Version: 0.0.0.9000
+Authors@R: Peng Xu
+Description: a function that multiplies two square matrices and a vector
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

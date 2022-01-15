@@ -10,11 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Stats230 HW1
-URL of github repository: https://github.com/pengxu9/stats230
-
 Matrices and Vector Multiplication, using written function to calculate the product of 2 $n$ dimensional square matrices $A$,$B$ and a $n$ column vector.
 
 ```{r matrices_vector_mult}
+devtools::install_github('https://github.com/pengxu9/stats230')
+library(stats230)
 A<- matrix(sample(1:100,100,replace=TRUE),ncol=10)
 B<- matrix(sample(1:100,100,replace=TRUE),ncol=10)
 x<- c(sample(1:100,10,replace=TRUE))
@@ -33,3 +33,6 @@ bench::mark(
 ```
 
 The final performances result suggests that $A$ $\times ($$B$ $\times$ $x$) is a better way, which takes less memory allocation and less total time spent.
+
+
+URL of github repository: https://github.com/pengxu9/stats230

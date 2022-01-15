@@ -2,6 +2,8 @@ Package: stats230
 Title: Matrices and vector multiplication
 Version: 0.0.0.9000
 Authors@R:
+      person("Peng", "Xu", , "pxu4@uci.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: a function that multiplies two square matrices and a vector
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license

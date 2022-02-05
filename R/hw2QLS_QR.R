@@ -18,3 +18,4 @@ QLS_QR<-function(X,Y){
   #beta<-solve(R)%*%t(Q)%*%Y
   return(beta)
 }
+

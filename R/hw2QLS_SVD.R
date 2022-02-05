@@ -9,7 +9,6 @@
 #' Y<-Y
 #' QLS_SVD(X,Y)
 #' @export
-library(matlib)
 QLS_SVD<-function(X,Y){
   X_SVD<-svd(X)
   D<-diag(X_SVD$d)

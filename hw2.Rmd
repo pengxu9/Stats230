@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#devtools::install_github('https://github.com/pengxu9/stats230')
+devtools::install_github('https://github.com/pengxu9/stats230')
 library(stats230)
 ```
 
@@ -20,14 +20,14 @@ N<-100
 #sigma<-rWishart(1,n,diag(n))
 mu<-matrix(rnorm(n),nrow=n,ncol=1)
 sigma<-matrix(rWishart(1,n,diag(n)),nrow=n,ncol=n)
-mvn_cholesky(100,mu,sigma)
+mvn_cholesky(N,mu,sigma)
 ```
 
 ## problem 8
 
 $(a)$
 ```{r p8}
-data <- read.csv("homework2_regression.csv")
+data <- read.csv("C:/Users/peng1/OneDrive/Desktop/stats230/homework2_regression.csv")
 df<-data.matrix(data)
 X<-df[,2:6]
 Y<-df[,1]
@@ -43,7 +43,7 @@ QLS_SVD(X,Y)
 
 ## c
 $(c)$
-
+Using QR decomposition takes less time but more memory allocation
 ```{r pressure, echo=FALSE}
 bench::mark(
   QLS_QR(X,Y),

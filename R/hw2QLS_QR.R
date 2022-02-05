@@ -19,3 +19,4 @@ QLS_QR<-function(X,Y){
   return(beta)
 }
 
+

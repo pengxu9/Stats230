@@ -1,0 +1,129 @@
+---
+title: "230hw3"
+author: "pengxu"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+
+Gradient descent Method
+
+```{r cars}
+#devtools::install_github('https://github.com/pengxu9/stats230')
+library(dplyr)
+library(ggplot2)
+library(ggbeeswarm)
+library(stats230)
+heart<-read.csv("C:/Users/peng1/OneDrive/Desktop/stats230/SAheart.data.txt")
+heart<-select(heart, -"row.names")
+X<-select(heart,-"chd")
+X=data.matrix(X)
+y<-heart$chd
+gd<-gradient_descent(X=X,y=y,n.iter=1000,epilson=1e-8,alpha =1e-6)
+message("coefficent: ", gd[1])  
+message("lower CI:", gd[3])  
+message("upper CI:", gd[4])  
+loglikelihood<-data.frame(gd[2])
+colnames(loglikelihood)<-c("log_likelihood")
+loglikelihood<-unlist(loglikelihood$log_likelihood)
+ggplot() +
+        geom_point(aes(
+            x = 1:1000,
+            y = loglikelihood)) +
+        labs(
+            x = "Iteration",
+            y = "log-likelihood",
+            title = "Trace of log-likehood")
+```
+
+## Newton-Raphson
+
+```{r}
+nr<-Newton_Raphson(X,y,1e-8,1000)
+print("Coefficent");nr[1]
+print("Lower CI");nr[3]
+print("Upper CI");nr[4]
+loglikelihood_nr<-data.frame(nr[2])
+colnames(loglikelihood_nr)<-c("log_likelihood")
+loglikelihood_nr<-unlist(loglikelihood_nr$log_likelihood)
+ggplot() +
+        geom_point(aes(
+            x = 1:6,
+            y = loglikelihood_nr)) +
+        labs(
+            x = "Iteration",
+            y = "log-likelihood",
+            title = "Trace of log-likehood")
+
+```
+  
+Newton_Raphson is almost twice as fast than gradient descent.
+
+```{r}
+result1<-bench::mark(
+gradient_descent(X=X,y=y,n.iter=1000,epilson=1e-8,alpha =1e-6)
+)
+summary(result1,relative=F)
+ggplot2::autoplot(result1)
+result2<-bench::mark(
+Newton_Raphson(X,y,1e-8,1000)
+) 
+
+ggplot2::autoplot(result2)
+```
+
+
+## Problem 2
+
+```{r}
+n<-c(6,4,55,35)
+p<-c(0.1,0.3,0.6)
+EM(n,p,1e-8)
+```
+## Problem 3
+
+  $(a)$
+
+```{r}
+S<-c("1","2")
+P=matrix(c(0.98,0.05,0.02,0.95),nrow=2)
+E=matrix(c(1/6,1/10,1/6,1/10,1/6,1/2,1/6,1/10,1/6,1/10,1/6,1/10,1/6,1/10),nrow=2)
+V=matrix(c(1/2,1/2))
+sim<-sim_HMM(V=V,P=P,E=E,S=S,N=100)
+sim
+```
+
+
+  $(b)$
+
+```{r pressure, echo=FALSE}
+obs<-sim$obs
+a<-forward_HMM(V=V,P=P,E=E,S=S,obs=obs)
+a
+b<-backward_HMM(V=V,P=P,E=E,S=S,obs=obs)
+b
+prob = a*b/rowSums(a*b)
+plot(prob[,2],type="l",ylim=c(0,1), main="marginal probabilities of hidden states versus true simulated states")
+points(sim$states==2,col="red",cex=1)
+```
+
+
+
+
+  $(c)$
+```{r}
+P=matrix(c(0.75,0.25,0.10,0.9),nrow=2)
+E=matrix(c(1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6,1/6),nrow=2)
+V=matrix(c(1/4,3/4))
+Baum_Welch(V=V,P=P,E=E,S=S,obs=obs,n.iter=1000,epilson=1e-8)
+```
+  
+  
+  
+URL of github repository: https://github.com/pengxu9/stats230
+
+  

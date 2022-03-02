@@ -52,6 +52,6 @@ Baum_Welch = function(V0,P0,E0,S,obs,n.iter,epilson){
       break
     }
   }
-  return(list(V,P,E))
+  return(list(V=V,P=P,E=E))
 }
 
